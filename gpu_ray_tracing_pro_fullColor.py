@@ -57,8 +57,8 @@ d_lut_TIR = cuda.to_device(lut_TIR)
 d_lut_gap = cuda.to_device(lut_gap)
 
 # generating huge ray matrix
-num_iter = 2
-num_rays_per_FoV = 3000 # the number of rays per FoV
+num_iter = 6
+num_rays_per_FoV = 5000 # the number of rays per FoV
 matrix_size = num_rays_per_FoV*num_FOV_x*num_FOV_y*len(lmd)
 num_rays = matrix_size
 
@@ -235,4 +235,5 @@ axes[2].set_title('Normalized FoV Efficiency B')
 plt.tight_layout()
 
 plt.show()
+
 
