@@ -23,9 +23,11 @@ All design parameters—periods, positions, and diffraction directions—are def
 
 | Code region* | Parameter / Function | Description |
 | ------------- | ------------------- | ------------ |
-| Lines ≈ 40 – 120 | `couplers_coor_full_color()` | Main function to set waveguide geometry and coupler parameters. Edit this section to change your design. |
-| Lines ≈ 125 – 200 | `IC`, `FC`, `OC` definitions | Define in-coupler, folding-coupler, and out-coupler positions and orientations. |
-| Lines ≈ 210 – 260 | Material and thickness parameters | Set refractive index, waveguide thickness, and substrate geometry. |
+| Lines ≈ 122 – 750 | `couplers_coor_full_color()` | Main function to set waveguide geometry and coupler parameters. Edit this section to change your design. |
+| Lines ≈ 125 – 127 | `FoV` definitions | Define FoVx and FoVy. |
+| Lines ≈ 136 – 140 | Material and thickness parameters | Set refractive index, waveguide thickness, and substrate geometry. |
+| Lines ≈ 158 – 164 | Eyebox | Set eyebox size and position. |
+| Lines ≈ 183 – 188 | Couplers | Define in-coupler, folding-coupler, and out-coupler grating period and orientations. |
 
 \*Line numbers refer to the current version and may shift with edits.
 
@@ -37,12 +39,6 @@ All design parameters—periods, positions, and diffraction directions—are def
 
 Implements all GPU kernels and host functions using **Numba CUDA** for massive parallel ray tracing.  
 Each ray propagates through the waveguide according to LUT-based diffraction data.
-
-| Key functions | Purpose |
-| -------------- | -------- |
-| `gpu_trace_rays()` | Core GPU kernel performing ray propagation and reflection/refraction tracking. |
-| `apply_LUT()` | Retrieves diffraction efficiencies from RCWA LUTs for each coupler and wavelength. |
-| `collect_results()` | Aggregates intensity distributions at the eyebox for all FoV angles. |
 
 > Ensure that your CUDA-enabled GPU (e.g., RTX 4080 / A100) is properly configured before running this module.
 
@@ -56,22 +52,15 @@ Provides several quantitative metrics for display performance:
 | Metric | Description |
 | ------- | ----------- |
 | **System Efficiency** | Total light throughput from the input pupil to the eyebox. |
-| **Color Dispersion** | Wavelength-dependent shift of FoV and brightness. |
-| **FoV Uniformity** | Brightness variation across the entire field of view. |
+| **Color Dispersion** | Color difference between pure white and the color after passing through the waveguide. |
+| **FoV Uniformity** | Brightness variation across the entire field of view for different eye position. |
 | **Eyebox Uniformity** | Spatial uniformity of brightness perceived by the eye. |
-
-Plots of all metrics are automatically generated after the main simulation.
 
 ---
 
 ## 4  `plot_design_fullColor.py`
 
 Visualizes the AR waveguide configuration.
-
-| Code region | Parameter | Description |
-| ------------ | ---------- | ------------ |
-| Lines ≈ 30 – 80 | Design parameters | Imported directly from `couplers_coor_full_color()` |
-| Output | 2-D layout + effective angular response | Confirms that couplers are correctly aligned and diffraction directions are valid. |
 
 > **Tip:** Run this script after every major design change to ensure the layout is physically reasonable.
 
@@ -81,13 +70,15 @@ Visualizes the AR waveguide configuration.
 
 Downloads the full set of **RCWA-generated Look-Up Tables (LUTs)** used in the ray-tracing simulation.  
 Each LUT corresponds to a specific coupler and wavelength, containing precomputed diffraction efficiencies and phase information.
+RCWA code is currently not avaiable.
 
 | Step | Action |
 | ---- | ------- |
 | 1 | Execute `python download_lut.py` before running any GPU tracing. |
 | 2 | Verify that the downloaded LUTs are stored in the designated `/LUT/` directory. |
 
-> LUT data were generated using RCWA based on the grating structures described in the paper.
+> ⚠️ **Note:** Sorry, the RCWA generation module is **currently unavailable** in this repository.
+> Please use the **pre-computed LUT files** provided for simulation.
 
 ---
 
@@ -98,13 +89,11 @@ Main script for running the **full-color GPU ray tracing simulation**.
 1. Load LUTs and waveguide parameters.  
 2. Launch GPU kernels to trace all rays.  
 3. Compute efficiency, uniformity, and color dispersion.  
-4. Generate and save plots automatically.
+4. Generate plots automatically.
 
 | Code line* | Parameter | Description |
 | ----------- | ---------- | ------------ |
-| ~45 | `FOVx`, `FOVy`, `lmd_list` | Define the angular and spectral sampling. |
-| ~120 | `gpu_batch_size` | Control GPU memory load; decrease if running out of VRAM. |
-| ~250 | Output directory | All figures and numerical results will be saved here. |
+| Lines ≈ 61 | `num_rays_per_FoV` | Define the number of rays for each FoV and each wavelength. |
 
 \*Approximate locations; may shift with updates.
 
@@ -137,18 +126,8 @@ Main script for running the **full-color GPU ray tracing simulation**.
 - **CUDA-enabled GPU** (RTX / A100 or equivalent)  
 - Packages:  
   ```bash
-  pip install numpy numba matplotlib
+  pip install numpy numba matplotlib colour-science cv2 shapely scipy math
   ```
-
----
-
-## 📄 Reference
-
-If you use this code in your research, please cite:
-
-> **Y. Zhang, S.-T. Wu**,  
-> *“Fast evaluation of waveguide-based AR displays with an open-source GPU ray-tracing method,”*  
-> [Journal / Conference Name, Year].  
 
 ---
 
