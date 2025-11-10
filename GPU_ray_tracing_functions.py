@@ -2,7 +2,6 @@ import numpy as np
 import time
 import math
 from numba import cuda, int32, float32, uint32
-from couplers_coor import couplers_coor
 import matplotlib.pyplot as plt
 from matplotlib.path import Path
 from matplotlib.colors import LogNorm
@@ -1243,4 +1242,5 @@ def process_rays_kernel_pro_fullColor(
                         return
                     break
             if not hit:
+
                 return
