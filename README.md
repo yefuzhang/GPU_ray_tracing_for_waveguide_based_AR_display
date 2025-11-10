@@ -69,7 +69,7 @@ Visualizes the AR waveguide configuration.
 ## 5  `download_lut.py`
 
 Downloads the full set of **RCWA-generated Look-Up Tables (LUTs)** used in the ray-tracing simulation.  
-Each LUT corresponds to a specific coupler and wavelength, containing precomputed diffraction efficiencies and phase information.
+The LUTs provided corresponds to the grating structures mentioned in the paper, containing precomputed diffraction efficiencies and phase information.
 RCWA code is currently not avaiable.
 
 | Step | Action |
