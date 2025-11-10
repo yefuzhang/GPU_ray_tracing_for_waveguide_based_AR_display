@@ -4,7 +4,7 @@ from numba import cuda, int32, float32
 from couplers_coor import couplers_coor_full_color
 import matplotlib.pyplot as plt
 from scipy.io import savemat
-from GPU_ray_tracing_functions as GRTF
+import GPU_ray_tracing_functions as GRTF
 from AR_system_evaluation_functions import evaluation
 import cv2
 
@@ -233,4 +233,5 @@ fig.colorbar(im3, ax=axes[2], label='Intensity')
 axes[2].set_title('Normalized FoV Efficiency B')
 
 plt.tight_layout()
+
 plt.show()
