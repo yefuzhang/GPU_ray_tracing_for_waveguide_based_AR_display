@@ -3,7 +3,6 @@ import numpy as np
 import os
 
 def download_and_load(file_id, local_name):
-    """Download from Google Drive (if needed) and load npy"""
     if not os.path.exists(local_name):
         url = f"https://drive.google.com/uc?id={file_id}"
         print(f"Downloading {local_name} ...")
@@ -20,3 +19,4 @@ lut_oc1 = download_and_load("1WJZvcRpYeMwYBPxSLQewQXERYUAKD0in", "lut_oc1_fullCo
 lut_oc2 = download_and_load("11SCZNpk0bcX7tM_ihbsz-YSsRudMIrRB", "lut_oc2_fullColor.npy")
 
 print("All LUTs loaded successfully!")
+
