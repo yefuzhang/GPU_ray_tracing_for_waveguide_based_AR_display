@@ -127,6 +127,7 @@ Main script for running the **full-color GPU ray tracing simulation**.
 - Packages:  
   ```bash
   pip install numpy numba matplotlib colour-science cv2 shapely scipy math
+  conda install cudatoolkit
   ```
 
 ---
