@@ -1,7 +1,7 @@
 # GPU Ray Tracing Toolkit for Waveguide-Based AR Displays  
-This code was developed by **Yefu Zhang** under the supervision of **Prof. Shin-Tson Wu**.
+This code was developed by **Yefu Zhang** and **Yuqiang Ding** under the supervision of **Prof. Shin-Tson Wu**.
 
-This repository accompanies our paper on **Fast evaluation of waveguide-based AR displays with an open-source GPU ray-tracing method** (*link to DOI when available*).  
+This repository accompanies our paper on **Fast evaluation of waveguide AR displays with an open-source GPU ray-tracing method** (*link to DOI when available*).  
 It provides a complete framework for GPU-accelerated optical simulation and performance evaluation of full-color diffractive waveguides.  
 The repository includes six main scripts:
 
