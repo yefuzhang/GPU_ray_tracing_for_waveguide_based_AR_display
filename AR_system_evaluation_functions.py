@@ -118,7 +118,7 @@ def evaluation(matrix_EB):
     wavelength_image = wavelength_image[..., np.newaxis, np.newaxis]
 
     # apply system efficiency
-    adjusted_wavelengths = wavelength_image * np.transpose(matrix_eye_perceive, (1, 2, 0, 3, 4))
+    adjusted_wavelengths = wavelength_image * np.flip(np.transpose(matrix_eye_perceive, (1, 2, 0, 3, 4)),axis=2)
     output_image = np.empty_like(adjusted_wavelengths)
     delta_e = 0
     U_fov = 0
@@ -159,4 +159,5 @@ def evaluation(matrix_EB):
     else:
         U_EB = np.min(U_EB)/np.max(U_EB)
     
+
     return delta_e, U_fov, U_EB, output_image
